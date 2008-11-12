@@ -1,0 +1,13 @@
+Source: etimetool
+Section: core
+Maintainer: Alexander Kerner <lunohod@openinkpot.org>
+XCS-Cross-Host-Build-Depends: debhelper (>> 2.0.0)
+XCS-Cross-Build-Depends: libewl-dev
+Priority: optional
+Standards-Version: 3.6.2
+
+Package: etimetool
+Architecture: any
+Depends: ${shlibs:Depends}
+Description: Clock settings application
+ Clock settings application
