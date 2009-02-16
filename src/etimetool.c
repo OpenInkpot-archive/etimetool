@@ -53,7 +53,7 @@ void keypress_cb(Ewl_Widget *w, void *event, void *data)
 			ewl_entry_cursor_position_set(EWL_ENTRY(clock_entry)->cursor, 0);
 */			
 	} else if(!strcmp(k, "Return")) {
-	 	asprintf(&s, "date 0101%02d%02d2008", h, m);
+	 	asprintf(&s, "date 0101%02d%02d2008; hwclock --systohc", h, m);
 		system(s);
 		if(s)
 			free(s);
