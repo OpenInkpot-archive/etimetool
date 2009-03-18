@@ -1,7 +1,8 @@
 Source: etimetool
 Section: core
 Maintainer: Alexander Kerner <lunohod@openinkpot.org>
-XCS-Cross-Host-Build-Depends: debhelper (>> 2.0.0)
+Build-Depends: debhelper (>> 2.0.0), autoconf, automake, libtool, pkg-config, libewl1-dev
+XCS-Cross-Host-Build-Depends: debhelper (>> 2.0.0), autoconf, automake, libtool, pkg-config
 XCS-Cross-Build-Depends: libewl1-dev
 Priority: optional
 Standards-Version: 3.6.2
