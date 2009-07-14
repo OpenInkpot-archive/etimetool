@@ -4,11 +4,15 @@ images {
 
 styles {
 	style {
-		name, "textblock_style";
-		base, "font=sans-serif font_size=24 align=center valign=middle color=#000 wrap=word";
+		name, "field_style";
+		base, "font=sans-serif font_size=28 align=center valign=middle color=#000 wrap=word";
         tag,"cursor" "+style=underline underline_color=#000 underline_color=#000";
         tag, "/cursor" "-";
 	}
+	style {
+		name, "help_style";
+		base, "font=sans-serif font_size=24 align=center valign=middle color=#000 wrap=word";
+    }
 }
 
 collections {
@@ -69,7 +73,7 @@ collections {
 				}
 			}
 			part {
-				name, "etimetool/text";
+				name, "etimetool/date";
 				type, TEXTBLOCK;
 				multiline, 1;
 				mouse_events, 0;
@@ -77,15 +81,51 @@ collections {
 					state, "default" 0.0;
 					color, 0 0 0 255;
 					text {
-						style, "textblock_style";
+						style, "field_style";
 						max, 0 1;
 						text, "";
 					}
-					align, 0.0 0.4;
+					align, 0.0 0.3;
 					rel1 { relative, 0.0 0.0; offset, 0 0; to, "etimetool/text_rect"; }
 					rel2 { relative, 1.0 1.0; offset, 0 0; to, "etimetool/text_rect"; }
 				}
 			}
+			part {
+				name, "etimetool/time";
+				type, TEXTBLOCK;
+				multiline, 1;
+				mouse_events, 0;
+				description {
+					state, "default" 0.0;
+					color, 0 0 0 255;
+					text {
+						style, "field_style";
+						max, 0 1;
+						text, "";
+					}
+					align, 0.0 0.5;
+					rel1 { relative, 0.0 0.0; offset, 0 0; to, "etimetool/text_rect"; }
+					rel2 { relative, 1.0 1.0; offset, 0 0; to, "etimetool/text_rect"; }
+				}
 		}
-	}
+			part {
+				name, "etimetool/help";
+				type, TEXTBLOCK;
+				multiline, 1;
+				mouse_events, 0;
+				description {
+					state, "default" 0.0;
+					color, 0 0 0 255;
+					text {
+						style, "help_style";
+						max, 0 1;
+						text, "";
+					}
+					align, 0.0 0.8;
+					rel1 { relative, 0.0 0.0; offset, 0 0; to, "etimetool/text_rect"; }
+					rel2 { relative, 1.0 1.0; offset, 0 0; to, "etimetool/text_rect"; }
+				}
+            }
+       }
+    }
 }
