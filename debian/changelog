@@ -1,3 +1,12 @@
+etimetool (0.2-1) asimov; urgency=low
+
+  * Major rewrite
+  * Drop EWL, use Evas/Ecore/Edje only
+  * Design added
+  * Only cursor input avaliable now, numeric keys coming soon
+
+ -- Alexander V. Nikolaev <avn@daemon.hole.ru>  Wed, 15 Jul 2009 01:31:35 +0300
+
 etimetool (0.1-4) asimov; urgency=low
 
   * 2008 -> 2009
