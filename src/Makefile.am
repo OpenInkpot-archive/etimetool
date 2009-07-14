@@ -1,5 +1,5 @@
 INCLUDES = @EVAS_CFLAGS@ @EDJE_CFLAGS@ @ECORE_EVAS_CFLAGS@
-AM_CFLAGS=-Wall -Werror
+AM_CFLAGS=-Wall -Werror -DDATADIR='"$(datadir)"'
 
 bin_PROGRAMS = etimetool
 
