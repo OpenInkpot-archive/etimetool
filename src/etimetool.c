@@ -26,7 +26,8 @@ hwclock(int year, int month, int day, int h, int m)
             month, day, h, m, year);
 	if(s)
     {
-    	system(s);
+    	//system(s);
+        printf("system(\"%s\");\n",s);
 	    free(s);
 	}
 }
@@ -60,14 +61,16 @@ run()
 {
     ecore_event_handler_add(ECORE_EVENT_SIGNAL_EXIT, exit_handler, NULL);
     Ecore_Evas* main_win = ecore_evas_software_x11_new(0, 0, 0, 0, 600, 800);
-    ecore_evas_title_set(main_win, "Date/Time settings");
+    ecore_evas_title_set(main_win, "Date/time settings");
     ecore_evas_name_class_set(main_win, "etimetool", "etimetool");
     Evas* main_canvas = ecore_evas_get(main_win);
     ecore_evas_callback_delete_request_set(main_win, main_win_close_handler);
     ecore_evas_callback_resize_set(main_win, main_win_resize_handler);
     Evas_Object *edje = edje_object_add(main_canvas);
     evas_object_name_set(edje, "edje");
-    edje_object_file_set(edje, DATADIR "/etimetool/themes/etimetool.edj", "elock");
+    edje_object_file_set(edje, DATADIR "/etimetool/themes/etimetool.edj", "etimetool");
+    evas_object_show(edje);
+    ecore_evas_show(main_win);
     ecore_main_loop_begin();
 }
 
