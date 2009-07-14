@@ -1,7 +1,7 @@
-INCLUDES = @EWL_CFLAGS@
-AM_CFLAGS=-Wall
+INCLUDES = @EVAS_CFLAGS@ @EDJE_CFLAGS@ @ECORE_EVAS_CFLAGS@
+AM_CFLAGS=-Wall -Werror
 
 bin_PROGRAMS = etimetool
 
 etimetool_SOURCES = etimetool.c
-etimetool_LDADD = @EWL_LIBS@
+etimetool_LDADD = @EVAS_LIBS@ @EDJE_LIBS@ @ECORE_EVAS_LIBS@
