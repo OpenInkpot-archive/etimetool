@@ -1,7 +1,7 @@
 Source: etimetool
 Section: core
 Maintainer: Alexander V. Nikolaev <avn@daemon.hole.ru>
-Build-Depends: debhelper (>> 2.0.0), autoconf, automake, libtool, pkg-config, libewl1-dev
+Build-Depends: debhelper (>> 2.0.0), autoconf, automake, libtool, pkg-config
 XCS-Cross-Host-Build-Depends: debhelper (>> 2.0.0), autoconf, automake, libtool, pkg-config
 XCS-Cross-Build-Depends: libevas-dev, libedje-dev, libecore-dev
 Priority: optional
