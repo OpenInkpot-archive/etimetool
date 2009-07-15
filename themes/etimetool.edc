@@ -122,8 +122,8 @@ collections {
 						text, "";
 					}
 					align, 0.0 0.9;
-					rel1 { relative, 0.0 1.0; offset, 200 -35; to, "etimetool/image"; }
-					rel2 { relative, 0.0 1.0; offset, 580 -10; to, "etimetool/image"; }
+					rel1 { relative, 0.0 1.0; offset, 200 -45; to, "etimetool/image"; }
+					rel2 { relative, 0.0 1.0; offset, 580 -15; to, "etimetool/image"; }
 				}
             }
        }
