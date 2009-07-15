@@ -1,4 +1,5 @@
 #define _GNU_SOURCE 1
+#include <ctype.h>
 #include <locale.h>
 #include <libintl.h>
 #include <stdio.h>
@@ -70,7 +71,10 @@ _append_value(int index)
         _append("20");
     if(cursor == index)
         _append("<cursor>");
-    snprintf(s, 16, "%02d", values[index]);
+    if(cursor == index && half_mode)
+        snprintf(s, 16, "%d ", half);
+    else
+        snprintf(s, 16, "%02d", values[index]);
     _append(s);
     if(cursor == index)
         _append("</cursor>");
@@ -167,6 +171,38 @@ static void main_win_key_handler(void* param __attribute__((unused)),
     Evas_Event_Key_Down* ev = (Evas_Event_Key_Down*)event_info;
     const char* k = ev->keyname;
 
+    if(!strncmp(k, "KP_", 3) && (isdigit(k[3])) && !k[4])
+    {
+        int code = k[3] - '0';
+        int res;
+        printf("code %s %d\n", k, code);
+        if(half_mode)
+        {
+            printf("In half mode: %d %d\n", half, code);
+            res = half * 10 + code;
+            if(res > limits_up[cursor] || res < limits_down[cursor] ||
+                (res < 9 && cursor == E_YEAR))
+                reset_input();
+            else
+            {
+                values[cursor] = res;
+                half_mode = 0;
+                cursor_fwd();
+            }
+        }
+        else
+        {
+            if(code * 10 > limits_up[cursor])
+                return;
+            rollback = values[cursor];
+            half_mode = 1;
+            half = code;
+        }
+        draw(r);
+        return;
+
+    }
+
     if(!strcmp(k, "Escape"))
         ecore_main_loop_quit();
 
@@ -187,16 +223,6 @@ static void main_win_key_handler(void* param __attribute__((unused)),
         cursor_back();
     else if(!strcmp(k, "Right"))
         cursor_fwd();
-#if 1
-    else if(!strcmp(k, "KP_8"))
-        increment();
-    else if(!strcmp(k, "KP_2"))
-        decrement();
-    else if(!strcmp(k, "KP_4"))
-        cursor_back();
-    else if(!strcmp(k, "KP_6"))
-        cursor_fwd();
-#endif
     draw(r);
 }
 
