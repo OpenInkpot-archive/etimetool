@@ -3,7 +3,6 @@ AC_INIT(configure.ac)
 AM_INIT_AUTOMAKE(etimetool, 0.1)
 
 AC_PROG_CC
-AM_PROG_LIBTOOL
 
 PKG_PROG_PKG_CONFIG
 
