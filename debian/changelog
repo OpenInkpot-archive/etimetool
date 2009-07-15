@@ -1,3 +1,11 @@
+etimetool (0.2-2) asimov; urgency=low
+
+  * Applied fixes from LunohoD
+  * Implement digits input
+  * Able to set time by OK (no dry-run mode)
+
+ -- Alexander V. Nikolaev <avn@daemon.hole.ru>  Wed, 15 Jul 2009 21:03:12 +0300
+
 etimetool (0.2-1) asimov; urgency=low
 
   * Major rewrite
