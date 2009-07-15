@@ -163,6 +163,7 @@ save_and_exit()
 {
     hwclock(values[E_YEAR], values[E_MONTH], values[E_DAY], values[E_HOUR],
         values[E_MIN]);
+    ecore_main_loop_quit();
 }
 
 static void main_win_key_handler(void* param __attribute__((unused)),
