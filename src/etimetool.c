@@ -161,7 +161,8 @@ prepare()
 static void
 save_and_exit()
 {
-    printf("save and exit\n");
+    hwclock(values[E_YEAR], values[E_MONTH], values[E_DAY], values[E_HOUR],
+        values[E_MIN]);
 }
 
 static void main_win_key_handler(void* param __attribute__((unused)),
