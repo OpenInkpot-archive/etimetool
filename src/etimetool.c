@@ -198,12 +198,14 @@ static void main_win_key_handler(void* param __attribute__((unused)),
 
 static void main_win_resize_handler(Ecore_Evas* main_win)
 {
+   ecore_evas_hide(main_win);
    int w, h;
    Evas* canvas = ecore_evas_get(main_win);
    evas_output_size_get(canvas, &w, &h);
 
    Evas_Object* edje = evas_object_name_find(canvas, "edje");
    evas_object_resize(edje, w, h);
+   ecore_evas_show(main_win);
 }
 
 void exit_all(void* param) { ecore_main_loop_quit(); }
@@ -232,6 +234,8 @@ run()
     Evas_Object *edje = edje_object_add(main_canvas);
     evas_object_name_set(edje, "edje");
     edje_object_file_set(edje, DATADIR "/etimetool/themes/etimetool.edj", "etimetool");
+    evas_object_move(edje, 0, 0);
+    evas_object_resize(edje, 600, 800);
     evas_object_event_callback_add(edje, EVAS_CALLBACK_KEY_UP,
             &main_win_key_handler, edje);
     evas_object_focus_set(edje, 1);
