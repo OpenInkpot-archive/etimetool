@@ -66,10 +66,10 @@ static void
 _append_value(int index)
 {
     char s[16];
-    if(cursor == index)
-        _append("<cursor>");
     if(index == E_YEAR)
         _append("20");
+    if(cursor == index)
+        _append("<cursor>");
     snprintf(s, 16, "%02d", values[index]);
     _append(s);
     if(cursor == index)
@@ -100,16 +100,20 @@ draw(Evas_Object *edje)
     limit=1024;
     buf[0]='\0';
     _append_value(E_YEAR);
-    _append(" / ");
+    _append(" - ");
     _append_value(E_MONTH);
-    _append(" / ");
+    _append(" - ");
     _append_value(E_DAY);
+    _append(" ");
+    printf("etimetool/date=\"%s\"\n", buf);
     edje_object_part_text_set(edje, "etimetool/date", buf);
     limit=1024;
     buf[0]='\0';
     _append_value(E_HOUR);
     _append(" : ");
     _append_value(E_MIN);
+    _append(" ");
+    printf("etimetool/time=\"%s\"\n", buf);
     edje_object_part_text_set(edje, "etimetool/time", buf);
 }
 
@@ -183,7 +187,7 @@ static void main_win_key_handler(void* param __attribute__((unused)),
         cursor_back();
     else if(!strcmp(k, "Right"))
         cursor_fwd();
-#if 0
+#if 1
     else if(!strcmp(k, "KP_8"))
         increment();
     else if(!strcmp(k, "KP_2"))
