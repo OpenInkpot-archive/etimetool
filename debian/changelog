@@ -1,3 +1,9 @@
+etimetool (0.2-3+b1) asimov; urgency=low
+
+  * Rebuild due to EFL update
+
+ -- Mikhail Gusarov <dottedmag@dottedmag.net>  Tue, 18 Aug 2009 03:02:37 +0700
+
 etimetool (0.2-3) asimov; urgency=low
 
   * Up help string
