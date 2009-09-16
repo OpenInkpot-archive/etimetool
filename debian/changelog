@@ -1,6 +1,8 @@
 etimetool (0.2-4) asimov; urgency=low
 
-  * Adjust theme to new ecore engine
+  * Theme adjusted to new ecore engine
+  * Gettextized.
+  * New translations: Polish, Ukrainian, Bulgarian.
 
  -- Mikhail Gusarov <dottedmag@dottedmag.net>  Wed, 16 Sep 2009 05:05:56 +0700
 
