@@ -1,3 +1,9 @@
+etimetool (0.2-5) asimov; urgency=low
+
+  * Fix off-by-one error in date parsing (OI#489)
+
+ -- Mikhail Gusarov <dottedmag@dottedmag.net>  Thu, 24 Sep 2009 14:03:53 +0700
+
 etimetool (0.2-4) asimov; urgency=low
 
   * Theme adjusted to new ecore engine
