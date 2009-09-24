@@ -149,7 +149,7 @@ prepare()
     struct tm *loctime;
     curtime = time (NULL);
     loctime = localtime (&curtime);
-    values[E_MONTH] = loctime->tm_mon;
+    values[E_MONTH] = loctime->tm_mon + 1;
     values[E_DAY] = loctime->tm_mday;
     values[E_HOUR] = loctime->tm_hour;
     values[E_MIN] = loctime->tm_min;
