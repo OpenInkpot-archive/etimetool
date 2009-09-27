@@ -51,12 +51,10 @@ static int rtc_open()
 
 static void set_clock(int year, int month, int day, int h, int m)
 {
+    dbg("set_clock(%d-%d-%d %d:%d)", year, month, day, h, m);
+
     if(!update_clock)
-    {
-        fprintf(stderr, "set_clock(%d-%d-%d %d:%d) dry run\n",
-                year, month, day, h, m);
         return;
-    }
 
     struct tm tm = {
         .tm_sec = 0,
