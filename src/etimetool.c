@@ -1,15 +1,19 @@
 #define _GNU_SOURCE 1
+
 #include <ctype.h>
-#include <locale.h>
+#include <err.h>
+#include <fcntl.h>
 #include <libintl.h>
-#include <stdio.h>
-#include <stdlib.h>
+#include <linux/rtc.h>
+#include <stdbool.h>
 #include <string.h>
-#include <time.h>
-#include <Evas.h>
+#include <sys/ioctl.h>
+#include <unistd.h>
+
 #include <Ecore.h>
 #include <Ecore_Evas.h>
 #include <Edje.h>
+#include <Evas.h>
 
 static bool update_clock;
 
