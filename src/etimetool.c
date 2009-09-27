@@ -5,6 +5,7 @@
 #include <fcntl.h>
 #include <libintl.h>
 #include <linux/rtc.h>
+#include <stdarg.h>
 #include <stdbool.h>
 #include <string.h>
 #include <sys/ioctl.h>
@@ -16,6 +17,7 @@
 #include <Evas.h>
 
 static bool update_clock;
+static bool debug_output;
 
 enum {
     E_YEAR = 0,
@@ -24,6 +26,17 @@ enum {
     E_HOUR,
     E_MIN,
 } positions;
+
+static void dbg(const char* fmt, ...)
+{
+    if(!debug_output)
+        return;
+
+    va_list aq;
+    va_start(aq, fmt);
+    vfprintf(stderr, fmt, aq);
+    va_end(aq);
+}
 
 static int rtc_open()
 {
@@ -150,7 +163,7 @@ draw(Evas_Object *edje)
     _append(" - ");
     _append_value(E_DAY);
     _append(" ");
-    printf("etimetool/date=\"%s\"\n", buf);
+    dbg("etimetool/date=\"%s\"\n", buf);
     edje_object_part_text_set(edje, "etimetool/date", buf);
     limit=1024;
     buf[0]='\0';
@@ -217,10 +230,10 @@ static void main_win_key_handler(void* param __attribute__((unused)),
     {
         int code = k[3] - '0';
         int res;
-        printf("code %s %d\n", k, code);
+        dbg("code %s %d\n", k, code);
         if(half_mode)
         {
-            printf("In half mode: %d %d\n", half, code);
+            dbg("In half mode: %d %d\n", half, code);
             res = half * 10 + code;
             if(res > limits_up[cursor] || res < limits_down[cursor] ||
                 (res < 9 && cursor == E_YEAR))
@@ -324,6 +337,9 @@ int main(int argc, char **argv)
 {
     if(argc == 2 && !strcmp(argv[1], "--update-clock"))
         update_clock = true;
+
+    if(getenv("ETIMETOOL_DEBUG"))
+        debug_output = true;
 
     if(!evas_init())
         err(1, "Unable to initialize Evas");
