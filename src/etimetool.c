@@ -96,17 +96,17 @@ static void set_clock(int year, int month, int day, int h, int m)
         err(1, "Unable to close RTC clock descriptior");
 }
 
-int values[5];
-int limits_up[5] = { 99, 12, 31, 23, 59 };
-int limits_down[5] = { 0, 1, 1, 0, 0 };
+static int values[5];
+static int limits_up[5] = { 99, 12, 31, 23, 59 };
+static int limits_down[5] = { 0, 1, 1, 0, 0 };
 
 static char buf[1024];
 static int limit = 1024;
-int cursor = 0;
+static int cursor = 0;
 
-int half = 0;
-int half_mode = 0;
-int rollback = 0;
+static int half = 0;
+static int half_mode = 0;
+static int rollback = 0;
 
 static void
 _append(const char *s)
