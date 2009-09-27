@@ -11,16 +11,6 @@
 #include <Ecore_Evas.h>
 #include <Edje.h>
 
-
-static void die(const char* fmt, ...)
-{
-   va_list ap;
-   va_start(ap, fmt);
-   vfprintf(stderr, fmt, ap);
-   va_end(ap);
-   exit(EXIT_FAILURE);
-}
-
 enum {
     E_YEAR = 0,
     E_MONTH,
@@ -282,13 +272,13 @@ run()
 int main(int argc, char **argv)
 {
     if(!evas_init())
-        die("Unable to initialize Evas\n");
+        err(1, "Unable to initialize Evas");
     if(!ecore_init())
-        die("Unable to initialize Ecore\n");
+        err(1, "Unable to initialize Ecore");
     if(!ecore_evas_init())
-        die("Unable to initialize Ecore_Evas\n");
+        err(1, "Unable to initialize Ecore_Evas");
     if(!edje_init())
-        die("Unable to initialize Edje\n");
+        err(1, "Unable to initialize Edje");
 
     run();
 
