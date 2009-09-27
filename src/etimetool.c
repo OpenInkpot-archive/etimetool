@@ -108,16 +108,14 @@ static int half = 0;
 static int half_mode = 0;
 static int rollback = 0;
 
-static void
-_append(const char *s)
+static void _append(const char* s)
 {
     limit-=strlen(s);
     if(limit > 0) // Just protect from segfault, do nothing if string not fit.
         strncat(buf, s, limit);
 }
 
-static void
-_append_value(int index)
+static void _append_value(int index)
 {
     char s[16];
     if(index == E_YEAR)
@@ -133,26 +131,23 @@ _append_value(int index)
         _append("</cursor>");
 }
 
-
-
-static void
-cursor_fwd() {
+static void cursor_fwd()
+{
     if(cursor == E_MIN)
         cursor = E_YEAR;
     else
         cursor++;
 }
 
-static void
-cursor_back() {
+static void cursor_back()
+{
     if(cursor == E_YEAR)
         cursor = E_MIN;
     else
         cursor--;
 }
 
-static void
-draw(Evas_Object *edje)
+static void draw(Evas_Object* edje)
 {
     limit=1024;
     buf[0]='\0';
@@ -170,38 +165,36 @@ draw(Evas_Object *edje)
     _append(" : ");
     _append_value(E_MIN);
     _append(" ");
-    printf("etimetool/time=\"%s\"\n", buf);
+    dbg("etimetool/time=\"%s\"\n", buf);
     edje_object_part_text_set(edje, "etimetool/time", buf);
 }
 
-static void
-reset_input()
+static void reset_input()
 {
     half_mode = 0;
     values[cursor] = rollback;
 }
 
-static void
-increment() {
+static void increment()
+{
     values[cursor]++;
     if(values[cursor] > limits_up[cursor])
         values[cursor] = limits_down[cursor];
 }
 
-static void
-decrement() {
+static void decrement()
+{
     values[cursor]--;
     if(values[cursor] < limits_down[cursor])
         values[cursor] = limits_up[cursor];
 }
 
-static void
-prepare()
+static void prepare()
 {
     time_t curtime;
-    struct tm *loctime;
-    curtime = time (NULL);
-    loctime = localtime (&curtime);
+    struct tm* loctime;
+    curtime = time(NULL);
+    loctime = localtime(&curtime);
     values[E_MONTH] = loctime->tm_mon + 1;
     values[E_DAY] = loctime->tm_mday;
     values[E_HOUR] = loctime->tm_hour;
@@ -219,8 +212,8 @@ static void save_and_exit()
 }
 
 static void main_win_key_handler(void* param __attribute__((unused)),
-        Evas* e __attribute__((unused)),
-        Evas_Object *r, void* event_info)
+                                 Evas* e __attribute__((unused)),
+                                 Evas_Object* r, void* event_info)
 {
     Evas_Event_Key_Down* ev = (Evas_Event_Key_Down*)event_info;
     const char* k = ev->keyname;
@@ -291,8 +284,7 @@ static int exit_handler(void* param, int ev_type, void* event)
     return 1;
 }
 
-static void
-run()
+static void run()
 {
     ecore_event_handler_add(ECORE_EVENT_SIGNAL_EXIT, exit_handler, NULL);
     Ecore_Evas* main_win = ecore_evas_software_x11_new(0, 0, 0, 0, 600, 800);
@@ -307,10 +299,10 @@ run()
     evas_object_move(edje, 0, 0);
     evas_object_resize(edje, 600, 800);
     evas_object_event_callback_add(edje, EVAS_CALLBACK_KEY_UP,
-            &main_win_key_handler, edje);
+                                   &main_win_key_handler, edje);
     evas_object_focus_set(edje, 1);
     edje_object_part_text_set(edje, "etimetool/help",
-        gettext("\"C\" - Cancel \"OK\" - Apply"));
+                              gettext("\"C\" - Cancel \"OK\" - Apply"));
     prepare();
     draw(edje);
     evas_object_show(edje);
@@ -318,7 +310,7 @@ run()
     ecore_main_loop_begin();
 }
 
-int main(int argc, char **argv)
+int main(int argc, char** argv)
 {
     if(argc == 2 && !strcmp(argv[1], "--update-clock"))
         update_clock = true;
