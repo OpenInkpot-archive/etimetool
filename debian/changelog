@@ -1,3 +1,9 @@
+etimetool (0.2-8) asimov; urgency=low
+
+  * Added Xsession.d/20etimetool snippet, enabling clock setup on startup.
+
+ -- Mikhail Gusarov <dottedmag@dottedmag.net>  Mon, 28 Sep 2009 04:44:35 +0700
+
 etimetool (0.2-7) asimov; urgency=low
 
   * Packaging and build system cleanups.
