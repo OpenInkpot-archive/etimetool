@@ -63,8 +63,8 @@ static void set_clock(int year, int month, int day, int h, int m)
         .tm_min = m,
         .tm_hour = h,
         .tm_mday = day,
-        .tm_mon = month,
-        .tm_year = year
+        .tm_mon = month - 1,
+        .tm_year = year - 1900
     };
 
     struct timeval tv = {
