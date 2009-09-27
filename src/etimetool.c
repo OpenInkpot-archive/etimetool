@@ -158,11 +158,10 @@ prepare()
         values[E_YEAR] = 0;
 }
 
-static void
-save_and_exit()
+static void save_and_exit()
 {
-    hwclock(values[E_YEAR], values[E_MONTH], values[E_DAY], values[E_HOUR],
-        values[E_MIN]);
+    hwclock(values[E_YEAR], values[E_MONTH], values[E_DAY],
+            values[E_HOUR], values[E_MIN]);
     ecore_main_loop_quit();
 }
 
@@ -282,22 +281,21 @@ run()
 
 int main(int argc, char **argv)
 {
-   if(!evas_init())
-      die("Unable to initialize Evas\n");
-   if(!ecore_init())
-      die("Unable to initialize Ecore\n");
-   if(!ecore_evas_init())
-      die("Unable to initialize Ecore_Evas\n");
-   if(!edje_init())
-      die("Unable to initialize Edje\n");
+    if(!evas_init())
+        die("Unable to initialize Evas\n");
+    if(!ecore_init())
+        die("Unable to initialize Ecore\n");
+    if(!ecore_evas_init())
+        die("Unable to initialize Ecore_Evas\n");
+    if(!edje_init())
+        die("Unable to initialize Edje\n");
 
-   run();
+    run();
 
-   edje_shutdown();
-   ecore_evas_shutdown();
-   ecore_shutdown();
-   evas_shutdown();
+    edje_shutdown();
+    ecore_evas_shutdown();
+    ecore_shutdown();
+    evas_shutdown();
 
 	return 0;
 }
-
