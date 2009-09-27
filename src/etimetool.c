@@ -73,8 +73,8 @@ static void set_clock(int year, int month, int day, int h, int m)
     };
 
     if(tv.tv_sec == -1)
-        err(1, "failed to convert %d-%d-%d %d:%d time to Epoch-based timestamp",
-            year, month, day, h, m);
+        errx(1, "failed to convert %d-%d-%d %d:%d time to timestamp",
+             year, month, day, h, m);
 
     struct timezone tz = {
         .tz_minuteswest = 0,
