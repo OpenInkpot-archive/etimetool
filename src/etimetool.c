@@ -11,26 +11,73 @@
 #include <Ecore_Evas.h>
 #include <Edje.h>
 
+static bool update_clock;
+
 enum {
     E_YEAR = 0,
     E_MONTH,
     E_DAY,
     E_HOUR,
     E_MIN,
-    } positions;
+} positions;
 
-void
-hwclock(int year, int month, int day, int h, int m)
+static int rtc_open()
 {
-    char *s;
-	asprintf(&s, "date %02d%02d%02d%02d20%02d; hwclock --systohc",
-            month, day, h, m, year);
-	if(s)
+    int rtc = open("/dev/rtc", O_WRONLY);
+    if(rtc)
+        return rtc;
+    rtc = open("/dev/rtc0", O_WRONLY);
+    if(rtc)
+        return rtc;
+    rtc = open("/dev/misc/rtc", O_WRONLY);
+    return rtc;
+}
+
+static void set_clock(int year, int month, int day, int h, int m)
+{
+    if(!update_clock)
     {
-    	system(s);
-        //printf("system(\"%s\");\n",s);
-	    free(s);
-	}
+        fprintf(stderr, "set_clock(%d-%d-%d %d:%d) dry run\n",
+                year, month, day, h, m);
+        return;
+    }
+
+    struct tm tm = {
+        .tm_sec = 0,
+        .tm_min = m,
+        .tm_hour = h,
+        .tm_mday = day,
+        .tm_mon = month,
+        .tm_year = year
+    };
+
+    struct timeval tv = {
+        .tv_sec = mktime(&tm),
+        .tv_usec = 0
+    };
+
+    if(tv.tv_sec == -1)
+        err(1, "failed to convert %d-%d-%d %d:%d time to Epoch-based timestamp",
+            year, month, day, h, m);
+
+    struct timezone tz = {
+        .tz_minuteswest = 0,
+        .tz_dsttime = 0
+    };
+
+    if(-1 == settimeofday(&tv, &tz))
+        err(1, "settimeofday failed to set timestamp %ld", tv.tv_sec);
+
+    int rtc = rtc_open();
+    if(rtc == -1)
+        err(1, "Unable to open RTC clock");
+
+    if(ioctl(rtc, RTC_SET_TIME, &tm) == -1)
+        err(1, "Unable to set RTC clock to date %d-%d-%d %d:%d",
+            year, month, day, h, m);
+
+    if(-1 == close(rtc))
+        err(1, "Unable to close RTC clock descriptior");
 }
 
 int values[5];
@@ -150,8 +197,8 @@ prepare()
 
 static void save_and_exit()
 {
-    hwclock(values[E_YEAR], values[E_MONTH], values[E_DAY],
-            values[E_HOUR], values[E_MIN]);
+    set_clock(values[E_YEAR], values[E_MONTH], values[E_DAY],
+              values[E_HOUR], values[E_MIN]);
     ecore_main_loop_quit();
 }
 
@@ -271,6 +318,9 @@ run()
 
 int main(int argc, char **argv)
 {
+    if(argc == 2 && !strcmp(argv[1], "--update-clock"))
+        update_clock = true;
+
     if(!evas_init())
         err(1, "Unable to initialize Evas");
     if(!ecore_init())
