@@ -37,6 +37,7 @@ install: build
 	dh_installdirs
 
 	$(MAKE) install DESTDIR=$(CURDIR)/debian/etimetool
+	install -D -m 755 $(CURDIR)/debian/20etimetool $(CURDIR)/debian/etimetool/etc/X11/Xsession.d/20etimetool
 
 binary-arch: build install
 	dh_testdir

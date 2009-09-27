@@ -1,0 +1,5 @@
+# -*- mode: sh -*-
+
+if [ $(date +%Y) -lt 2009 ]; then
+    etimetool --update-clock
+fi
