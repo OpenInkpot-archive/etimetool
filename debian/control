@@ -1,11 +1,11 @@
 Source: etimetool
-Section: core
+Section: gui
 Maintainer: Alexander V. Nikolaev <avn@daemon.hole.ru>
-Build-Depends: debhelper (>> 2.0.0), autoconf, automake, libtool, pkg-config
-XCS-Cross-Host-Build-Depends: debhelper (>> 2.0.0), autoconf, automake, libtool, pkg-config
+Build-Depends: debhelper (>= 7), autoconf, automake, libtool, pkg-config, libevas-dev, libedje-dev, libecore-dev
+XCS-Cross-Host-Build-Depends: debhelper (>= 7), autoconf, automake, libtool, pkg-config
 XCS-Cross-Build-Depends: libevas-dev, libedje-dev, libecore-dev
 Priority: optional
-Standards-Version: 3.6.2
+Standards-Version: 3.8.3
 
 Package: etimetool
 Architecture: any
