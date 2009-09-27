@@ -1,3 +1,11 @@
+etimetool (0.2-6) asimov; urgency=low
+
+  * Use C API instead of forking shell
+    - Introduce --update-clock argument
+  * Various cleanups in source code and packaging.
+
+ -- Mikhail Gusarov <dottedmag@dottedmag.net>  Mon, 28 Sep 2009 04:12:25 +0700
+
 etimetool (0.2-5) asimov; urgency=low
 
   * Fix off-by-one error in date parsing (OI#489)
