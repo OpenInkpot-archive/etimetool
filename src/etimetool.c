@@ -41,13 +41,12 @@ static void dbg(const char* fmt, ...)
 static int rtc_open()
 {
     int rtc = open("/dev/rtc", O_WRONLY);
-    if(rtc)
+    if(rtc != -1)
         return rtc;
     rtc = open("/dev/rtc0", O_WRONLY);
-    if(rtc)
+    if(rtc != -1)
         return rtc;
-    rtc = open("/dev/misc/rtc", O_WRONLY);
-    return rtc;
+    return open("/dev/misc/rtc", O_WRONLY);
 }
 
 static void set_clock(int year, int month, int day, int h, int m)
