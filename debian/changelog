@@ -1,3 +1,9 @@
+etimetool (0.2-9) asimov; urgency=low
+
+  * Added translations: Hungarian, Chinese, Czech, Italian.
+
+ -- Mikhail Gusarov <dottedmag@dottedmag.net>  Wed, 07 Oct 2009 15:44:42 +0700
+
 etimetool (0.2-8) asimov; urgency=low
 
   * Added Xsession.d/20etimetool snippet, enabling clock setup on startup.
