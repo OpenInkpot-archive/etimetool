@@ -1,3 +1,9 @@
+etimetool (0.2-10) asimov; urgency=low
+
+  * Added translations: Belarusian, Catalan, Spanish, Latvian.
+
+ -- Mikhail Gusarov <dottedmag@dottedmag.net>  Fri, 06 Nov 2009 04:19:35 +0600
+
 etimetool (0.2-9) asimov; urgency=low
 
   * Added translations: Hungarian, Chinese, Czech, Italian.
