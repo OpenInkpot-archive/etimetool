@@ -310,6 +310,9 @@ static void run()
 
 int main(int argc, char** argv)
 {
+    setlocale(LC_ALL, "");
+    textdomain("etimetool");
+
     if(argc == 2 && !strcmp(argv[1], "--update-clock"))
         update_clock = true;
 
