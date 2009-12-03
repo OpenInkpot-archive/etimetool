@@ -1,3 +1,9 @@
+etimetool (0.2-12) asimov; urgency=low
+
+  * Added translation: Russian.
+
+ -- Mikhail Gusarov <dottedmag@dottedmag.net>  Thu, 03 Dec 2009 13:17:47 +0600
+
 etimetool (0.2-11) asimov; urgency=low
 
   * Adjust background (OI#531).
