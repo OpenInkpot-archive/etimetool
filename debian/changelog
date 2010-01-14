@@ -1,3 +1,11 @@
+etimetool (0.2.15) zelazny; urgency=low
+
+  * Rebuild due to EFL update.
+  * Added translation: Japanese.
+  * Update copyright information.
+
+ -- Mikhail Gusarov <dottedmag@dottedmag.net>  Thu, 14 Jan 2010 13:35:46 +0600
+
 etimetool (0.2-14) asimov; urgency=low
 
   * Enable translations in source code.
