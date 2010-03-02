@@ -1,7 +1,7 @@
 THEMES=$(wildcard *.edc)
 COMPILED_THEMES=$(patsubst %.edc,%.edj,$(THEMES))
 
-themedir=$(pkgdatadir)/themes
+themedir=$(datadir)/eoi/themes/default
 theme_DATA=$(COMPILED_THEMES)
 
 %.edj: %.edc

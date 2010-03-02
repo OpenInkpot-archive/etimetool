@@ -36,6 +36,8 @@
 #include <Edje.h>
 #include <Evas.h>
 
+#include <libeoi_themes.h>
+
 static bool update_clock;
 static bool debug_output;
 
@@ -310,10 +312,12 @@ static void run()
     ecore_evas_name_class_set(main_win, "etimetool", "etimetool");
     Evas* main_canvas = ecore_evas_get(main_win);
     ecore_evas_callback_delete_request_set(main_win, main_win_close_handler);
-    Evas_Object* edje = edje_object_add(main_canvas);
+
+    Evas_Object *edje
+        = eoi_create_themed_edje(main_canvas, "etimetool", "etimetool");
+
     ecore_evas_object_associate(main_win, edje, 0);
     evas_object_name_set(edje, "edje");
-    edje_object_file_set(edje, DATADIR "/etimetool/themes/etimetool.edj", "etimetool");
     evas_object_move(edje, 0, 0);
     evas_object_resize(edje, 600, 800);
     evas_object_event_callback_add(edje, EVAS_CALLBACK_KEY_UP,
