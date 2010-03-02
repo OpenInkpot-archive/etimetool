@@ -24,6 +24,7 @@
 #include <err.h>
 #include <fcntl.h>
 #include <libintl.h>
+#include <locale.h>
 #include <linux/rtc.h>
 #include <stdarg.h>
 #include <stdbool.h>
