@@ -1,3 +1,11 @@
+etimetool (0.2.16) zelazny; urgency=low
+
+  * Create .edj during build, do not keep it in repository (OI#121).
+  * Added translation: French.
+  * Updated translations: Russan, Ukrainian.
+
+ -- Mikhail Gusarov <dottedmag@dottedmag.net>  Tue, 02 Mar 2010 14:03:02 +0600
+
 etimetool (0.2.15) zelazny; urgency=low
 
   * Rebuild due to EFL update.
