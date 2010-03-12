@@ -357,8 +357,8 @@ int main(int argc, char** argv)
 
     run();
 
-    edje_shutdown();
     ecore_evas_shutdown();
+    edje_shutdown();
     ecore_shutdown();
     evas_shutdown();
 
