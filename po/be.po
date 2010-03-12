@@ -6,8 +6,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: etimetool 0.1\n"
-"Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-09-06 23:33+0200\n"
+"Report-Msgid-Bugs-To: avn@daemon.hole.ru\n"
+"POT-Creation-Date: 2010-03-13 04:16+0600\n"
 "PO-Revision-Date: 2009-10-23 22:59+0300\n"
 "Last-Translator: Yauhen Kharuzhy <jekhor@gmail.com>\n"
 "Language-Team: Belarusian <kde-i18n-doc@kde.org>\n"
@@ -17,7 +17,10 @@ msgstr ""
 "X-Generator: Lokalize 1.0\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
 
-#: src/etimetool.c:275
+#: src/etimetool.c:328
 msgid "\"C\" - Cancel \"OK\" - Apply"
 msgstr "\"C\" — адмяніць, \"OK\" — ужыць"
 
+#: src/etimetool.c:330
+msgid "Date/Time"
+msgstr ""

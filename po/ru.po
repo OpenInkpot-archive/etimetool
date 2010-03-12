@@ -1,12 +1,12 @@
 # etimetool
 # Copyright (C) 2009 Alexander Nikolaev <avn@daemon.hole.ru>
 # This file is in public domain
-# 
+#
 msgid ""
 msgstr ""
 "Project-Id-Version: etimetool 0.1\n"
-"Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-09-06 23:33+0200\n"
+"Report-Msgid-Bugs-To: avn@daemon.hole.ru\n"
+"POT-Creation-Date: 2010-03-13 04:16+0600\n"
 "PO-Revision-Date: 2009-12-02 16:51+0200\n"
 "Last-Translator: Alexey Sednev <lozhkinet@gmail.com>\n"
 "Language-Team: Russian <openinkpot-l10n@googlegroups.com>\n"
@@ -16,6 +16,10 @@ msgstr ""
 "X-Poedit-Language: Russian\n"
 "X-Poedit-Country: RUSSIAN FEDERATION\n"
 
-#: src/etimetool.c:275
+#: src/etimetool.c:328
 msgid "\"C\" - Cancel \"OK\" - Apply"
 msgstr "«C/ВОЗВРАТ» — Отмена, «OK» — Применить"
+
+#: src/etimetool.c:330
+msgid "Date/Time"
+msgstr ""

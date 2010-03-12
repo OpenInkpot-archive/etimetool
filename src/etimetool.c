@@ -326,6 +326,8 @@ static void run()
     evas_object_focus_set(edje, 1);
     edje_object_part_text_set(edje, "etimetool/help",
                               gettext("\"C\" - Cancel \"OK\" - Apply"));
+    edje_object_part_text_set(edje, "etimetool/title",
+                              gettext("Date/Time"));
     prepare();
     draw(edje);
     evas_object_show(edje);

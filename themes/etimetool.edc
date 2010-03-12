@@ -54,7 +54,6 @@ collections {
 					text {
 						font, "sans-serif";
 						size, 24;
-						text, "Date/Time";
 					}
 					rel1 { relative, 0.0 0.0; offset, 11 42; to, "etimetool/image"; }
 					rel2 { relative, 0.0 0.0; offset, 590 63; to, "etimetool/image"; }
