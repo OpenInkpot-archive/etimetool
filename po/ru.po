@@ -1,7 +1,7 @@
 # etimetool
 # Copyright (C) 2009 Alexander Nikolaev <avn@daemon.hole.ru>
 # This file is in public domain
-#
+# 
 msgid ""
 msgstr ""
 "Project-Id-Version: etimetool 0.1\n"
@@ -22,4 +22,4 @@ msgstr "«C/ВОЗВРАТ» — Отмена, «OK» — Применить"
 
 #: src/etimetool.c:330
 msgid "Date/Time"
-msgstr ""
+msgstr "Дата/Время"
