@@ -16,10 +16,10 @@ msgstr ""
 "X-Poedit-Language: Russian\n"
 "X-Poedit-Country: RUSSIAN FEDERATION\n"
 
-#: src/etimetool.c:328
-msgid "\"C\" - Cancel \"OK\" - Apply"
-msgstr "«C/ВОЗВРАТ» — Отмена, «OK» — Применить"
-
 #: src/etimetool.c:330
 msgid "Date/Time"
 msgstr "Дата/Время"
+
+#: src/etimetool.c:328
+msgid "\"C\" - Cancel \"OK\" - Apply"
+msgstr "\"C\" — Отмена,  \"OK\" — Применить"
