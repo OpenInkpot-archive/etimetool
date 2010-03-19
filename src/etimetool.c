@@ -1,7 +1,7 @@
 /*
  * Copyright (C) 2009 Alexander Kerner <lunohod@openinkpot.org>
  * Copyright (C) 2009 Alexander V. Nikolaev <avn@daemon.hole.ru>
- * Copyright © 2009 Mikhail Gusarov <dottedmag@dottedmag.net>
+ * Copyright © 2009,2010 Mikhail Gusarov <dottedmag@dottedmag.net>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -173,9 +173,9 @@ static void draw(Evas_Object* edje)
     limit=1024;
     buf[0]='\0';
     _append_value(E_YEAR);
-    _append(" - ");
+    _append("-");
     _append_value(E_MONTH);
-    _append(" - ");
+    _append("-");
     _append_value(E_DAY);
     _append(" ");
     dbg("etimetool/date=\"%s\"\n", buf);
@@ -183,7 +183,7 @@ static void draw(Evas_Object* edje)
     limit=1024;
     buf[0]='\0';
     _append_value(E_HOUR);
-    _append(" : ");
+    _append(":");
     _append_value(E_MIN);
     _append(" ");
     dbg("etimetool/time=\"%s\"\n", buf);
@@ -317,20 +317,20 @@ static void run()
     Evas_Object *edje
         = eoi_create_themed_edje(main_canvas, "etimetool", "etimetool");
 
-    ecore_evas_object_associate(main_win, edje, 0);
     evas_object_name_set(edje, "edje");
-    evas_object_move(edje, 0, 0);
-    evas_object_resize(edje, 600, 800);
     evas_object_event_callback_add(edje, EVAS_CALLBACK_KEY_UP,
                                    &main_win_key_handler, edje);
     evas_object_focus_set(edje, 1);
     edje_object_part_text_set(edje, "etimetool/help",
                               gettext("\"C\" - Cancel \"OK\" - Apply"));
-    edje_object_part_text_set(edje, "etimetool/title",
-                              gettext("Date/Time"));
+
+    Evas_Object *dlg = eoi_dialog_create("etimetool-dlg", edje);
+    ecore_evas_object_associate(main_win, dlg, 0);
+    eoi_dialog_title_set(dlg, gettext("Date/Time"));
+
     prepare();
     draw(edje);
-    evas_object_show(edje);
+    evas_object_show(dlg);
     ecore_evas_show(main_win);
     ecore_main_loop_begin();
 }
