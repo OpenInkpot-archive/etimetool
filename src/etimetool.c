@@ -358,8 +358,8 @@ int main(int argc, char** argv)
     run();
 
     ecore_evas_shutdown();
-    edje_shutdown();
     ecore_shutdown();
+    edje_shutdown();
     evas_shutdown();
 
 	return 0;
