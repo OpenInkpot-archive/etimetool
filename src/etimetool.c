@@ -50,9 +50,10 @@ enum {
     E_MIN,
 } positions;
 
-static void dbg(const char* fmt, ...)
+static void
+dbg(const char *fmt, ...)
 {
-    if(!debug_output)
+    if (!debug_output)
         return;
 
     va_list aq;
@@ -61,22 +62,24 @@ static void dbg(const char* fmt, ...)
     va_end(aq);
 }
 
-static int rtc_open()
+static int
+rtc_open()
 {
     int rtc = open("/dev/rtc", O_WRONLY);
-    if(rtc != -1)
+    if (rtc != -1)
         return rtc;
     rtc = open("/dev/rtc0", O_WRONLY);
-    if(rtc != -1)
+    if (rtc != -1)
         return rtc;
     return open("/dev/misc/rtc", O_WRONLY);
 }
 
-static void set_clock(int year, int month, int day, int h, int m)
+static void
+set_clock(int year, int month, int day, int h, int m)
 {
     dbg("set_clock(%d-%d-%d %d:%d)", year, month, day, h, m);
 
-    if(!update_clock)
+    if (!update_clock)
         return;
 
     struct tm tm = {
@@ -93,7 +96,7 @@ static void set_clock(int year, int month, int day, int h, int m)
         .tv_usec = 0
     };
 
-    if(tv.tv_sec == -1)
+    if (tv.tv_sec == -1)
         errx(1, "failed to convert %d-%d-%d %d:%d time to timestamp",
              year, month, day, h, m);
 
@@ -102,18 +105,18 @@ static void set_clock(int year, int month, int day, int h, int m)
         .tz_dsttime = 0
     };
 
-    if(-1 == settimeofday(&tv, &tz))
+    if (-1 == settimeofday(&tv, &tz))
         err(1, "settimeofday failed to set timestamp %ld", tv.tv_sec);
 
     int rtc = rtc_open();
-    if(rtc == -1)
+    if (rtc == -1)
         err(1, "Unable to open RTC clock");
 
-    if(ioctl(rtc, RTC_SET_TIME, &tm) == -1)
+    if (ioctl(rtc, RTC_SET_TIME, &tm) == -1)
         err(1, "Unable to set RTC clock to date %d-%d-%d %d:%d",
             year, month, day, h, m);
 
-    if(-1 == close(rtc))
+    if (-1 == close(rtc))
         err(1, "Unable to close RTC clock descriptior");
 }
 
@@ -129,46 +132,51 @@ static int half = 0;
 static int half_mode = 0;
 static int rollback = 0;
 
-static void _append(const char* s)
+static void
+_append(const char *s)
 {
-    limit-=strlen(s);
-    if(limit > 0) // Just protect from segfault, do nothing if string not fit.
+    limit -= strlen(s);
+    if (limit > 0) // Just protect from segfault, do nothing if string not fit.
         strncat(buf, s, limit);
 }
 
-static void _append_value(int index)
+static void
+_append_value(int index)
 {
     char s[16];
-    if(index == E_YEAR)
+    if (index == E_YEAR)
         _append("20");
-    if(cursor == index)
+    if (cursor == index)
         _append("<cursor>");
-    if(cursor == index && half_mode)
+    if (cursor == index && half_mode)
         snprintf(s, 16, "%d ", half);
     else
         snprintf(s, 16, "%02d", values[index]);
     _append(s);
-    if(cursor == index)
+    if (cursor == index)
         _append("</cursor>");
 }
 
-static void cursor_fwd()
+static void
+cursor_fwd()
 {
-    if(cursor == E_MIN)
+    if (cursor == E_MIN)
         cursor = E_YEAR;
     else
         cursor++;
 }
 
-static void cursor_back()
+static void
+cursor_back()
 {
-    if(cursor == E_YEAR)
+    if (cursor == E_YEAR)
         cursor = E_MIN;
     else
         cursor--;
 }
 
-static void draw(Evas_Object* edje)
+static void
+draw(Evas_Object *edje)
 {
     limit=1024;
     buf[0]='\0';
@@ -190,27 +198,31 @@ static void draw(Evas_Object* edje)
     edje_object_part_text_set(edje, "etimetool/time", buf);
 }
 
-static void reset_input()
+static void
+reset_input()
 {
     half_mode = 0;
     values[cursor] = rollback;
 }
 
-static void increment()
+static void
+increment()
 {
     values[cursor]++;
-    if(values[cursor] > limits_up[cursor])
+    if (values[cursor] > limits_up[cursor])
         values[cursor] = limits_down[cursor];
 }
 
-static void decrement()
+static void
+decrement()
 {
     values[cursor]--;
-    if(values[cursor] < limits_down[cursor])
+    if (values[cursor] < limits_down[cursor])
         values[cursor] = limits_up[cursor];
 }
 
-static void prepare()
+static void
+prepare()
 {
     time_t curtime;
     struct tm* loctime;
@@ -221,46 +233,43 @@ static void prepare()
     values[E_HOUR] = loctime->tm_hour;
     values[E_MIN] = loctime->tm_min;
     values[E_YEAR] = loctime->tm_year - 100;
-    if(values[E_YEAR] < 9)
+    if (values[E_YEAR] < 9)
         values[E_YEAR] = 0;
 }
 
-static void save_and_exit()
+static void
+save_and_exit()
 {
     set_clock(2000 + values[E_YEAR], values[E_MONTH], values[E_DAY],
               values[E_HOUR], values[E_MIN]);
     ecore_main_loop_quit();
 }
 
-static void main_win_key_handler(void* param __attribute__((unused)),
-                                 Evas* e __attribute__((unused)),
-                                 Evas_Object* r, void* event_info)
+static void
+main_win_key_handler(void *param __attribute__((unused)),
+                     Evas *e __attribute__((unused)),
+                     Evas_Object *r, void *event_info)
 {
-    Evas_Event_Key_Down* ev = (Evas_Event_Key_Down*)event_info;
-    const char* k = ev->keyname;
+    Evas_Event_Key_Down *ev = (Evas_Event_Key_Down*)event_info;
+    const char *k = ev->keyname;
 
-    if(!strncmp(k, "KP_", 3) && (isdigit(k[3])) && !k[4])
-    {
+    if (!strncmp(k, "KP_", 3) && (isdigit(k[3])) && !k[4]) {
         int code = k[3] - '0';
         int res;
         dbg("code %s %d\n", k, code);
-        if(half_mode)
-        {
+        if (half_mode) {
             dbg("In half mode: %d %d\n", half, code);
             res = half * 10 + code;
-            if(res > limits_up[cursor] || res < limits_down[cursor] ||
+            if (res > limits_up[cursor] || res < limits_down[cursor] ||
                 (res < 9 && cursor == E_YEAR))
                 reset_input();
-            else
-            {
+            else {
                 values[cursor] = res;
                 half_mode = 0;
                 cursor_fwd();
             }
-        }
-        else
-        {
-            if(code * 10 > limits_up[cursor])
+        } else {
+            if (code * 10 > limits_up[cursor])
                 return;
             rollback = values[cursor];
             half_mode = 1;
@@ -268,50 +277,49 @@ static void main_win_key_handler(void* param __attribute__((unused)),
         }
         draw(r);
         return;
-
     }
 
-    if(!strcmp(k, "Escape"))
+    if (!strcmp(k, "Escape"))
         ecore_main_loop_quit();
 
-    if(half_mode)
-    {
+    if (half_mode) {
         reset_input();
         draw(r);
         return;
-    }
-
-    else if(!strcmp(k, "Return") || !strcmp(k, "KP_Return"))
+    } else if (!strcmp(k, "Return") || !strcmp(k, "KP_Return"))
         save_and_exit();
-    else if(!strcmp(k, "Up") || !strcmp(k, "Prior"))
+    else if (!strcmp(k, "Up") || !strcmp(k, "Prior"))
         increment();
-    else if(!strcmp(k, "Down") || !strcmp(k, "Next"))
+    else if (!strcmp(k, "Down") || !strcmp(k, "Next"))
         decrement();
-    else if(!strcmp(k, "Left"))
+    else if (!strcmp(k, "Left"))
         cursor_back();
-    else if(!strcmp(k, "Right"))
+    else if (!strcmp(k, "Right"))
         cursor_fwd();
     draw(r);
 }
 
-static void main_win_close_handler(Ecore_Evas* main_win)
+static void
+main_win_close_handler(Ecore_Evas *main_win)
 {
     ecore_main_loop_quit();
 }
 
-static int exit_handler(void* param, int ev_type, void* event)
+static int
+exit_handler(void *param, int ev_type, void *event)
 {
     ecore_main_loop_quit();
     return 1;
 }
 
-static void run()
+static void
+run()
 {
     ecore_event_handler_add(ECORE_EVENT_SIGNAL_EXIT, exit_handler, NULL);
-    Ecore_Evas* main_win = ecore_evas_software_x11_new(0, 0, 0, 0, 600, 800);
+    Ecore_Evas *main_win = ecore_evas_software_x11_new(0, 0, 0, 0, 600, 800);
     ecore_evas_title_set(main_win, "Date/time settings");
     ecore_evas_name_class_set(main_win, "etimetool", "etimetool");
-    Evas* main_canvas = ecore_evas_get(main_win);
+    Evas *main_canvas = ecore_evas_get(main_win);
     ecore_evas_callback_delete_request_set(main_win, main_win_close_handler);
 
     Evas_Object *edje
@@ -335,24 +343,25 @@ static void run()
     ecore_main_loop_begin();
 }
 
-int main(int argc, char** argv)
+int
+main(int argc, char **argv)
 {
     setlocale(LC_ALL, "");
     textdomain("etimetool");
 
-    if(argc == 2 && !strcmp(argv[1], "--update-clock"))
+    if (argc == 2 && !strcmp(argv[1], "--update-clock"))
         update_clock = true;
 
-    if(getenv("ETIMETOOL_DEBUG"))
+    if (getenv("ETIMETOOL_DEBUG"))
         debug_output = true;
 
-    if(!evas_init())
+    if (!evas_init())
         err(1, "Unable to initialize Evas");
-    if(!ecore_init())
+    if (!ecore_init())
         err(1, "Unable to initialize Ecore");
-    if(!ecore_evas_init())
+    if (!ecore_evas_init())
         err(1, "Unable to initialize Ecore_Evas");
-    if(!edje_init())
+    if (!edje_init())
         err(1, "Unable to initialize Edje");
 
     run();
