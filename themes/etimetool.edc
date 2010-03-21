@@ -1,7 +1,7 @@
 styles {
     style {
         name, "help";
-        base, "font=DejaVu\\Sans\\ Condensed font_size=22 align=center color=#000 wrap=word";
+        base, "font=DejaVu\\ Sans\\ Condensed font_size=22 align=center color=#000 wrap=word";
         tag, "bb" "+font=DejaVu\\ Sans\\ Condensed:style=bold";
         tag, "/bb" "-";
         tag, "br" "\n";
@@ -10,7 +10,7 @@ styles {
     style {
         name, "date-time";
         base, "font=DejaVu\\ Sans\\ Condensed font_size=40 align=center color=#444444";
-        tag, "cursor" "+style=underline underline_color=#444444";
+        tag, "cursor" "+style=underline underline_color=#000000";
         tag, "/cursor" "-";
     }
 }
@@ -26,7 +26,6 @@ collections {
                     state, "default" 0.0;
                     text { style, "date-time"; }
                     rel1 { offset, 0 25; }
-                    rel2 { offset, -1 -1; }
                 }
             }
             part {
@@ -36,7 +35,6 @@ collections {
                     state, "default" 0.0;
                     text { style, "date-time"; }
                     rel1 { offset, 0 73; }
-                    rel2 { offset, -1 -1; }
                 }
             }
             part {
@@ -45,9 +43,21 @@ collections {
                 multiline, 1;
                 description {
                     state, "default" 0.0;
-                    text { style, "help"; text, "«<bb>OK</bb>» - foobar<br>«<b>B</b>» - bazbaz";}
+                    text { style, "help"; }
                     rel1 { offset, 0 148; }
-                    rel2 { offset, -1 -1; }
+                }
+            }
+        }
+    }
+    group {
+        name, "icon";
+        images { image, "clock-icon.png" COMP; }
+        parts {
+            part {
+                name, "icon";
+                description {
+                    state, "default" 0.0;
+                    image { normal, "clock-icon.png"; }
                 }
             }
         }

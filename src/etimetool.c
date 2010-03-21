@@ -336,6 +336,11 @@ run()
     ecore_evas_object_associate(main_win, dlg, 0);
     eoi_dialog_title_set(dlg, gettext("Date/Time"));
 
+    Evas_Object *ic = eoi_create_themed_edje(main_canvas, "etimetool", "icon");
+    edje_object_part_swallow(dlg, "icon", ic);
+
+    evas_object_resize(dlg, 600, 800);
+
     prepare();
     draw(edje);
     evas_object_show(dlg);
