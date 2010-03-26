@@ -20,4 +20,4 @@ msgstr "Дата/Час"
 
 #: src/etimetool.c:328
 msgid "\"C\" - Cancel \"OK\" - Apply"
-msgstr " \"<b>OK</b>\" — застосувати<br>\"<b>C</b>\"/\"<b>↶</b>\" — відмінити"
+msgstr "\"<b>OK</b>\" — застосувати<br>\"<b>C</b>\"/\"<b>↶</b>\" — відмінити"
