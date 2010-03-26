@@ -14,10 +14,10 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: src/etimetool.c:328
-msgid "\"C\" - Cancel \"OK\" - Apply"
-msgstr "\"C\" — Відмінити \"OK\" — Застосувати"
-
 #: src/etimetool.c:330
 msgid "Date/Time"
 msgstr "Дата/Час"
+
+#: src/etimetool.c:328
+msgid "\"C\" - Cancel \"OK\" - Apply"
+msgstr " \"<b>OK</b>\" — застосувати<br>\"<b>C</b>\"/\"<b>↶</b>\" — відмінити"
