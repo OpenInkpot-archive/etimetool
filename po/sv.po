@@ -1,8 +1,8 @@
-# SOME DESCRIPTIVE TITLE.
+# etimetool.
 # This file is put in the public domain.
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
 #
-
+#
 msgid ""
 msgstr ""
 "Project-Id-Version: etimetool 0.2\n"
@@ -17,7 +17,7 @@ msgstr ""
 
 #: src/etimetool.c:328
 msgid "\"C\" - Cancel \"OK\" - Apply"
-msgstr "\"C\" - Avbryt \"OK\" - Tillämpa"
+msgstr "\"C\" - Avbryt \"OK\" - Verkställ"
 
 #: src/etimetool.c:330
 msgid "Date/Time"
