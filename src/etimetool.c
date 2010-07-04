@@ -37,6 +37,7 @@
 #include <Edje.h>
 #include <Evas.h>
 
+#include <libeoi_dialog.h>
 #include <libeoi_themes.h>
 
 static bool update_clock;
@@ -305,7 +306,7 @@ main_win_close_handler(Ecore_Evas *main_win)
     ecore_main_loop_quit();
 }
 
-static int
+static Eina_Bool
 exit_handler(void *param, int ev_type, void *event)
 {
     ecore_main_loop_quit();
