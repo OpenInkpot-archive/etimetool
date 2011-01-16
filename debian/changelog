@@ -1,3 +1,11 @@
+etimetool (0.2.22) zelazny; urgency=low
+
+  * Stop running etimetool on X startup, as graphical main menu provides
+    adequate way to set up time, and those using text menu may use
+    settings page.
+
+ -- Mikhail Gusarov <dottedmag@dottedmag.net>  Sun, 16 Jan 2011 11:31:08 +0100
+
 etimetool (0.2.21) zelazny; urgency=low
 
   [ András Csehi ]
