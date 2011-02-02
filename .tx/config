@@ -1,0 +1,8 @@
+[oi.etimetool]
+file_filter = po/<lang>.po
+source_file = po/etimetool.pot
+source_lang = en
+
+[main]
+host = transifex.net
+

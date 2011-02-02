@@ -1,38 +1,53 @@
-PACKAGE = @PACKAGE@
+top_builddir = ..
+
+# -- Build
 
 POFILES = $(wildcard *.po)
 MOFILES = $(patsubst %.po,%.mo,$(POFILES)) 
 
-top_builddir = ..
+CLEANFILES = $(MOFILES)
+
 localedir=$(datadir)/locale
 
 MSGFMT = msgfmt
 
-update-po:
-	rm -f $(PACKAGE).pot
-	xgettext -k_ -d $(PACKAGE) \
-	  --foreign-user \
-	  --package-name="$(PACKAGE)" --package-version="@VERSION@" \
-	  --msgid-bugs-address="@PACKAGE_BUGREPORT@" \
-	  -f POTFILES -D $(top_srcdir) -o $(PACKAGE).pot
-	for cat in "" $(POFILES); do \
-	  if test -z "$$cat"; then continue; fi; \
-	  msgmerge -o tmp-$$cat $$cat $(PACKAGE).pot && \
-	  mv -f tmp-$$cat $$cat; \
-	done
-
 all: $(MOFILES)
 
 %.mo: %.po
-	@echo "$(MSGFMT) -o $@ $<"; $(MSGFMT) -o t-$@ $< && mv t-$@ $@
+	$(MSGFMT) -o t-$@ $< && mv t-$@ $@
 
 install-data-hook: $(MOFILES)
-	@for cat in "" $(MOFILES); do \
+	for cat in "" $(MOFILES); do \
 	  if test -z "$$cat"; then continue; fi; \
 	  cat=`basename $$cat`; \
 	  lang=`echo $$cat | sed -e 's/\.mo$$//'`; \
 	  dir=$(localedir)/$$lang/LC_MESSAGES; \
 	  $(mkdir_p) $(DESTDIR)$$dir; \
 	  if test -r $$cat; then realcat=$$cat; else realcat=$(srcdir)/$$cat; fi; \
-	  $(INSTALL) $$realcat $(DESTDIR)$$dir/$(PACKAGE).mo; \
+	  $(INSTALL) -m 644 $$realcat $(DESTDIR)$$dir/$(PACKAGE).mo; \
 	 done
+
+# -- Manage translations
+
+SOURCES = $(shell cd $(top_builddir); find . -name '*.[hc]')
+
+$(PACKAGE).pot:
+	cd $(top_builddir); xgettext -k_ -kN_ -d $(PACKAGE) \
+		--from-code=UTF-8 \
+		--foreign-user \
+		--package-name="$(PACKAGE)" --package-version="$(VERSION)" \
+		--msgid-bugs-address="$(PACKAGE_BUGREPORT)" \
+		-o $(abs_srcdir)/$@ $(SOURCES)
+
+# .tx
+
+push-source: $(PACKAGE).pot
+	tx push -s
+
+push-translations:
+	if [ "$fORCE" = yes ]; then tx push -t; fi
+
+pull-translations:
+	tx pull -a
+
+.PHONY: $(PACKAGE).pot
